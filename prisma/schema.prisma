@@ -12,20 +12,119 @@ datasource db {
 
 model admin_login {
   admin_id String @id @unique @db.VarChar(20)
-  password String @db.VarChar(20)
+  password String
 }
 
-model admin_profile {
-  id             Int    @id @unique
-  first_name     String
-  last_name      String
-  email          String
-  address        String @db.VarChar(250)
-  gender         String
-  contact_number Int    @unique @db.Integer
-  city           String
-  state          String
-  password       String @db.VarChar(20)
-  admin_qualification  String 
+model admin {
+  id                  Int    @id @default(autoincrement())
+  first_name          String
+  last_name           String
+  email               String @unique
+  address             String @db.VarChar(250)
+  gender              String
+  contact_number      Int    @unique @db.Integer
+  city                String
+  state               String
+  password            String @db.VarChar(20)
+  admin_qualification String
 }
 
+model student {
+  id                  Int           @id @default(autoincrement())
+  first_name          String
+  last_name           String
+  email               String
+  address             String        @db.VarChar(250)
+  gender              String
+  contact_number      Int           @unique @db.Integer
+  city                String
+  state               String
+  password            String        @db.VarChar(20)
+  admin_qualification String
+  branch              branch        @relation(fields: [branch_id], references: [ID])
+  branch_id           String        @db.Uuid
+  semester            semester      @relation(fields: [sem_no], references: [sem_number])
+  sem_no              Int
+  academic_year       academic_year @relation(fields: [year_num], references: [year_number])
+  year_num            Int
+}
+
+model staff {
+  id                  Int    @id @default(autoincrement())
+  first_name          String
+  last_name           String
+  email               String @unique
+  address             String @db.VarChar(250)
+  gender              String
+  contact_number      Int    @unique
+  city                String
+  state               String
+  password            String @db.VarChar(20)
+  admin_qualification String
+}
+
+model subject {
+  ID           String @id @default(uuid()) @db.Uuid
+  subject_name String
+  branch       branch @relation(fields: [branch_id], references: [ID])
+  branch_id    String @db.Uuid
+}
+
+model semester {
+  sem_id     String    @id @default(uuid()) @db.Uuid
+  sem_number Int       @unique @db.Integer
+  student    student[]
+}
+
+model academic_year {
+  ID          String    @id @default(uuid()) @db.Uuid
+  year_number Int       @unique @db.Integer
+  student     student[]
+}
+
+model allocate_subject {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model branch {
+  ID         String    @id @default(uuid()) @db.Uuid
+  banch_name String
+  subject    subject[]
+  student    student[]
+}
+
+model exam_schedule {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model exam_subject {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model exam_type {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model notes {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model staff_remarks {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model student_remarks {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model girevence_redressal {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model attendance {
+  id String @id @default(uuid()) @db.Uuid
+}
+
+model monthly_report {
+  id String @id @default(uuid()) @db.Uuid
+}
