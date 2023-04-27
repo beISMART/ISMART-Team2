@@ -13,3 +13,16 @@ model admin_login{
   admin_id String @unique @db.VarChar(20) @id
   password String @db.VarChar(20) 
 }
+
+model admin_profile {
+  id  Int @unique  @id
+  first_name String 
+  last_name String
+  email String 
+  address String @db.VarChar(250)
+  gender String
+  contact_number Int @unique @db.Integer
+  city String 
+  state String
+  password String @db.VarChar(20) 
+}
