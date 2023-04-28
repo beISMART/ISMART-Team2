@@ -55,7 +55,7 @@ const main = ()=>{
 
 
 main().then(()=>{
-    console.log("Sucessfully Seeded")
+    console.log("Sucessfully Seeded here")
 }).catch((e)=>{
     console.log(e);
 })
