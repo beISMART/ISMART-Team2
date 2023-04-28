@@ -11,13 +11,49 @@ datasource db {
 }
 
 model admin_login {
-  admin_id String @id @unique @db.VarChar(20)
-  password String
+  admin_email                 String                        @unique
+  admin_name                  String
+  password                    String
+  admin_login_session_details admin_login_session_details[]
+}
+
+model admin_login_session_details {
+  session_id  Int         @id @default(autoincrement())
+  admin_login admin_login @relation(fields: [admin_name], references: [admin_email])
+  admin_name  String
+  login_at    DateTime    @default(dbgenerated("now()"))
+  logout_at   DateTime    @default(dbgenerated("now()"))
+}
+
+model staff_login {
+  staff_email String @unique
+  satff_name  String
+  password    String
+
+  staff_login_session_details staff_login_session_details[]
+}
+
+model staff_login_session_details {
+  session_id  Int         @id @default(autoincrement())
+  staff_login staff_login @relation(fields: [staff_name], references: [staff_email])
+  staff_name  String
+  login_at    DateTime    @default(dbgenerated("now()"))
+  logout_at   DateTime    @default(dbgenerated("now()"))
 }
 
 model student_login {
-  reg_no   String @id @unique @db.VarChar(20)
-  password String
+  student_email                 String                          @unique
+  student_name                  String
+  password                      String
+  student_login_session_details student_login_session_details[]
+}
+
+model student_login_session_details {
+  session_id    Int           @id @default(autoincrement())
+  student_login student_login @relation(fields: [student_name], references: [student_email])
+  student_name  String
+  login_at      DateTime      @default(dbgenerated("now()"))
+  logout_at     DateTime      @default(dbgenerated("now()"))
 }
 
 model admin {
@@ -25,46 +61,49 @@ model admin {
   admin_id            String            @unique
   first_name          String
   last_name           String
+  full_name           String
   email               String            @unique
   address             String            @db.VarChar(250)
   gender              String
   contact_number      Int               @unique @db.Integer
-  city                String
   state               String
+  city                String
   password            String            @db.VarChar(20)
-  admin_qualification String
+  admin_qualification String            @db.VarChar(250)
   staff_remarks       staff_remarks[]
   student_remarks     student_remarks[]
 }
 
 model student {
-  id                  Int               @id @default(autoincrement())
-  first_name          String
-  last_name           String
-  full_name           String
-  reg_no              String            @unique
-  email               String            @unique
-  address             String            @db.VarChar(250)
-  gender              String
-  contact_number      Int               @unique @db.Integer
-  city                String
-  state               String
-  password            String            @db.VarChar(20)
-  admin_qualification String
-  branch              branch            @relation(fields: [branch_id], references: [ID])
-  branch_id           String            @db.Uuid
-  semester            semester          @relation(fields: [sem_no], references: [sem_number])
-  sem_no              Int
-  academic_year       academic_year     @relation(fields: [year_num], references: [year_number])
-  year_num            Int
-  student_remarks     student_remarks[]
-  see_marks           see_marks[]
-  CIE_marks           CIE_marks[]
-  Monthly_report      Monthly_report[]
+  id                Int               @id @default(autoincrement())
+  first_name        String
+  last_name         String
+  full_name         String
+  reg_no            String            @unique
+  email             String            @unique
+  address           String            @db.VarChar(250)
+  gender            String
+  contact_number    Int               @unique @db.Integer
+  city              String
+  state             String
+  password          String            @db.VarChar(20)
+  academic_year     academic_year     @relation(fields: [stu_academic_year], references: [year_number])
+  stu_academic_year Int
+  branch            branch            @relation(fields: [branchID], references: [ID])
+  branchID          String            @db.Uuid
+  semester          semester          @relation(fields: [semesterSem_id], references: [sem_id])
+  semesterSem_id    String            @db.Uuid
+  student_remarks   student_remarks[]
+  see_marks         see_marks[]
+  CIE_marks         CIE_marks[]
+  attendance        attendance[]
+  notes             notes[]
+  assignments       assignments[]
 }
 
 model staff {
-  id                  String          @id @default(uuid()) @db.Uuid
+  id                  Int             @id @default(autoincrement())
+  staff_id            String          @unique
   first_name          String
   last_name           String
   full_name           String
@@ -75,74 +114,82 @@ model staff {
   city                String
   state               String
   password            String          @db.VarChar(20)
-  admin_qualification String
+  staff_qualification String
+  academic_year       academic_year   @relation(fields: [ac_year], references: [year_number])
+  ac_year             Int
+  branch              branch          @relation(fields: [branch_name], references: [branch_code])
+  branch_name         String
+  subject             subject         @relation(fields: [subject_name], references: [sub_code])
+  subject_name        String
   staff_remarks       staff_remarks[]
+  notes               notes[]
 }
 
 model subject {
-  ID               String             @id @default(uuid()) @db.Uuid
-  subject_name     String
-  branch           branch             @relation(fields: [branch_id], references: [ID])
-  branch_id        String             @db.Uuid
-  allocate_subject allocate_subject[]
-  CIE_marks        CIE_marks[]
-  see_marks        see_marks[]
+  id             Int              @id @default(autoincrement())
+  sub_code       String           @unique
+  subject_name   String
+  staff          staff[]
+  branch         branch           @relation(fields: [branchID], references: [ID])
+  branchID       String           @db.Uuid
+  exam_schedule  exam_schedule[]
+  CIE_marks      CIE_marks[]
+  attendance     attendance[]
+  monthly_report monthly_report[]
+  notes          notes[]
 }
 
 model semester {
   sem_id              String                @id @default(uuid()) @db.Uuid
-  sem_number          Int                   @unique @db.Integer
+  sem_number          Int                   @unique
   student             student[]
-  allocate_subject    allocate_subject[]
   exam_schedule       exam_schedule[]
-  student_remarks     student_remarks[]
   girevence_redressal girevence_redressal[]
+  see_marks           see_marks[]
+
+  CIE_marks      CIE_marks[]
+  attendance     attendance[]
+  monthly_report monthly_report[]
+  notes          notes[]
+  assignments    assignments[]
 }
 
 model academic_year {
-  ID            String          @id @default(uuid()) @db.Uuid
-  year_number   Int             @unique @db.Integer
-  student       student[]
-  exam_schedule exam_schedule[]
-}
-
-model allocate_subject {
-  ID           String   @id @default(uuid()) @db.Uuid
-  semester     semester @relation(fields: [sem_no], references: [sem_number])
-  sem_no       Int
-  subject      subject  @relation(fields: [subject_name], references: [ID])
-  subject_name String
+  ID          String    @id @default(uuid()) @db.Uuid
+  year_number Int       @unique @db.Integer
+  staff       staff[]
+  student     student[]
 }
 
 model branch {
   ID                  String                @id @default(uuid()) @db.Uuid
+  branch_code         String                @unique
   banch_name          String
-  subject             subject[]
+  staff               staff[]
   student             student[]
+  subject             subject[]
   exam_schedule       exam_schedule[]
-  student_remarks     student_remarks[]
   staff_remarks       staff_remarks[]
   girevence_redressal girevence_redressal[]
+  see_marks           see_marks[]
+  CIE_marks           CIE_marks[]
+  attendance          attendance[]
+  monthly_report      monthly_report[]
+  notes               notes[]
+  assignments         assignments[]
 }
 
 model exam_schedule {
-  ID            String        @id @default(uuid()) @db.Uuid
-  academic_year academic_year @relation(fields: [year_num], references: [year_number])
-  year_num      Int
-  branch        branch        @relation(fields: [branch_id], references: [ID])
-  branch_id     String        @db.Uuid
-  semester      semester      @relation(fields: [sem_no], references: [sem_number])
-  sem_no        Int
-  exam_subject  exam_subject  @relation(fields: [subject_name], references: [ID])
-  subject_name  String
-  type_of_exam  type_of_exam  @relation(fields: [exam_type], references: [ID])
-  exam_type     String
-}
-
-model exam_subject {
-  ID            String          @id @default(uuid()) @db.Uuid
-  subject_name  String
-  exam_schedule exam_schedule[]
+  ID             String       @id @default(uuid()) @db.Uuid
+  exam_at        DateTime
+  branch         branch       @relation(fields: [branchID], references: [ID])
+  branchID       String       @db.Uuid
+  semester       semester     @relation(fields: [semesterSem_id], references: [sem_id])
+  semesterSem_id String       @db.Uuid
+  subject        subject      @relation(fields: [subjectId], references: [id])
+  subjectId      Int
+  type_of_exam   type_of_exam @relation(fields: [type_of_examID], references: [ID])
+  type_of_examID String       @db.Uuid
 }
 
 model type_of_exam {
@@ -151,79 +198,119 @@ model type_of_exam {
   exam_schedule exam_schedule[]
 }
 
-model notes {
-  id String @id @default(uuid()) @db.Uuid
-}
-
 model staff_remarks {
   ID                  String @id @default(uuid()) @db.Uuid
-  staff               staff  @relation(fields: [staff_name], references: [id])
-  staff_name          String
-  branch              branch @relation(fields: [branch_name], references: [ID])
+  branch              branch @relation(fields: [branch_name], references: [branch_code])
   branch_name         String
+  staff               staff  @relation(fields: [staff_name], references: [email])
+  staff_name          String
+  admin_by            admin  @relation(fields: [admin_name], references: [email])
+  admin_name          String
   remarks_category    String
   remarks_description String @db.VarChar(250)
-  remarks_by          admin  @relation(fields: [admin_name], references: [admin_id])
-  admin_name          String
 }
 
 model student_remarks {
-  ID                  String   @id @default(uuid()) @db.Uuid
-  student             student  @relation(fields: [student_name], references: [reg_no])
+  ID                  String  @id @default(uuid()) @db.Uuid
+  student             student @relation(fields: [student_name], references: [reg_no])
   student_name        String
-  branch              branch   @relation(fields: [branch_name], references: [ID])
-  branch_name         String
-  semester            semester @relation(fields: [sem_no], references: [sem_number])
-  sem_no              Int
-  remarks_category    String
-  remarks_description String   @db.VarChar(250)
-  remarks_by          admin    @relation(fields: [admin_name], references: [admin_id])
+  admin_by            admin   @relation(fields: [admin_name], references: [email])
   admin_name          String
+  remarks_category    String
+  remarks_description String  @db.VarChar(250)
 }
 
 model girevence_redressal {
-  id          String   @id @default(uuid()) @db.Uuid
-  branch      branch   @relation(fields: [branch_name], references: [ID])
-  branch_name String
-  semester    semester @relation(fields: [sem_no], references: [sem_number])
-  sem_no      Int
-  Date        DateTime
-  issue       String   @db.VarChar(250)
-  staus       String
-}
-
-model attendance {
-  id String @id @default(uuid()) @db.Uuid
-}
-
-model monthly_report {
-  id String @id @default(uuid()) @db.Uuid
+  id                String   @id @default(uuid()) @db.Uuid
+  branch            branch   @relation(fields: [branch_name], references: [branch_code])
+  branch_name       String
+  sem               semester @relation(fields: [sem_number], references: [sem_number])
+  sem_number        Int
+  Date              DateTime
+  issue_description String   @db.VarChar(250)
+  status            String
 }
 
 model see_marks {
-  id           String  @id @default(uuid()) @db.Uuid
-  student      student @relation(fields: [reg_num], references: [email])
-  reg_num      String
-  Subject      subject @relation(fields: [subject], references: [ID])
-  subject      String
-  
-  student_name String
-  cie_marks    String
-  see_total    String
+  id          String   @id @default(uuid()) @db.Uuid
+  student     student  @relation(fields: [reg_no], references: [reg_no])
+  reg_no      String
+  barnch      branch   @relation(fields: [branch], references: [branch_code])
+  branch      String
+  semester    semester @relation(fields: [sem_number], references: [sem_number])
+  sem_number  Int
+  CIE_total   Int
+  SEE_total   Int
+  Grand_total Int
 }
 
 model CIE_marks {
-  id           String  @id @default(uuid()) @db.Uuid
-  student      student @relation(fields: [reg_no], references: [email])
-  reg_no       String
-  student_name String
-  Subject      subject @relation(fields: [sub1], references: [ID])
-  sub1         String
+  id            String   @id @default(uuid()) @db.Uuid
+  student       student  @relation(fields: [reg_no], references: [reg_no])
+  reg_no        String
+  barnch        branch   @relation(fields: [branch], references: [branch_code])
+  branch        String
+  semester      semester @relation(fields: [sem_number], references: [sem_number])
+  sem_number    Int
+  subject       subject  @relation(fields: [subjects], references: [sub_code])
+  subjects      String
+  subject_marks Int
+  CIE_total     Int
 }
 
-model Monthly_report {
-  id      String  @id @default(uuid()) @db.Uuid
-  student student @relation(fields: [reg_no], references: [email])
-  reg_no  String
-  percentage Int
+model attendance {
+  id           String   @id @default(uuid()) @db.Uuid
+  branch       branch   @relation(fields: [branch_name], references: [branch_code])
+  branch_name  String
+  semester     semester @relation(fields: [sem_number], references: [sem_number])
+  sem_number   Int
+  subject      subject  @relation(fields: [subjects], references: [sub_code])
+  subjects     String
+  student      student  @relation(fields: [student_name], references: [reg_no])
+  student_name String
+  status       Boolean  @default(false)
+  Date         DateTime
+}
+
+model monthly_report {
+  id                 String   @id @default(uuid()) @db.Uuid
+  Month              DateTime
+  branch             branch   @relation(fields: [branch_name], references: [branch_code])
+  branch_name        String
+  semester           semester @relation(fields: [sem_number], references: [sem_number])
+  sem_number         Int
+  subject            subject  @relation(fields: [subjects], references: [sub_code])
+  subjects           String
+  Subject_percentage String
+}
+
+model notes {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  pdf         Bytes
+  branch      branch   @relation(fields: [branch_name], references: [branch_code])
+  branch_name String
+  semester    semester @relation(fields: [sem_number], references: [sem_number])
+  sem_number  Int
+  subject     subject  @relation(fields: [subjects], references: [sub_code])
+  subjects    String
+  staff       staff    @relation(fields: [staff_name], references: [staff_id])
+  staff_name  String
+  student     student  @relation(fields: [reg_no], references: [id])
+  reg_no      Int
+}
+
+model assignments {
+  id                Int      @id @default(autoincrement())
+  title             String
+  description       String
+  deadline          DateTime
+  submit_assignment Bytes
+  branch            branch   @relation(fields: [branch_name], references: [branch_code])
+  branch_name       String
+  semester          semester @relation(fields: [sem_number], references: [sem_number])
+  sem_number        Int
+  Submited_student  student  @relation(fields: [student_name], references: [reg_no])
+  student_name      String
 }
