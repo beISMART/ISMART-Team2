@@ -47,12 +47,10 @@ const getadmin = (): Prisma.adminCreateInput[] =>[
     },
 ] 
 
-const main = async () => {
-    
-    //inserting admin data
-    await client.admin.createMany({
-      data: getadmin(),
-    });
+const main = ()=>{
+    return Promise.all(getadmin().map((adminInput)=>client.admin.create({
+        data:adminInput
+    })))
 }
 
 
