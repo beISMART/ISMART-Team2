@@ -65,7 +65,7 @@ model admin {
   email               String            @unique
   address             String            @db.VarChar(250)
   gender              String
-  contact_number      Int               @unique @db.Integer
+  contact_number      Int               @unique 
   state               String
   city                String
   password            String            @db.VarChar(20)
