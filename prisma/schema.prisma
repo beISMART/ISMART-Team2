@@ -19,7 +19,7 @@ model admin {
   email               String                @unique
   address             String                @db.VarChar(250)
   gender              String
-  contact_number      Int                   @unique @db.Integer
+  contact_number      String                @unique
   state               String
   city                String
   password            String                @db.VarChar(20)
@@ -36,19 +36,19 @@ model admin {
 }
 
 model student {
-  id                  Int                   @id @default(autoincrement())
-  first_name          String
-  last_name           String
-  full_name           String
-  reg_no              String                @unique
-  email               String                @unique
-  address             String                @db.VarChar(250)
-  gender              String
-  contact_number      Int                   @unique @db.Integer
-  city                String
-  state               String
-  password            String                @db.VarChar(20)
-  
+  id             Int    @id @default(autoincrement())
+  first_name     String
+  last_name      String
+  full_name      String
+  reg_no         String @unique
+  email          String @unique
+  address        String @db.VarChar(250)
+  gender         String
+  contact_number String @unique
+  city           String
+  state          String
+  password       String @db.VarChar(20)
+
   notes               notes[]
   assingments         assignments[]
   girevence_redressal girevence_redressal[]
@@ -64,12 +64,12 @@ model student {
   see_marksSee_id               String          @db.Uuid
   CIE_marks                     CIE_marks       @relation(fields: [cIE_marksCie_id], references: [cie_id])
   cIE_marksCie_id               String          @db.Uuid
-  academic_year     academic_year @relation(fields: [academic_yearID], references: [ID])
-  academic_yearID   String        @db.Uuid
-  branch            branch        @relation(fields: [branchBranch_code], references: [branch_code])
-  branchBranch_code Int
-  semester          semester     @relation(fields: [semesterSem_id], references: [sem_id])
-  semesterSem_id    Int
+  academic_year                 academic_year   @relation(fields: [academic_yearID], references: [ID])
+  academic_yearID               String          @db.Uuid
+  branch                        branch          @relation(fields: [branchBranch_code], references: [branch_code])
+  branchBranch_code             Int
+  semester                      semester        @relation(fields: [semesterSem_id], references: [sem_id])
+  semesterSem_id                Int
 }
 
 model staff {
@@ -81,7 +81,7 @@ model staff {
   email               String        @unique
   address             String        @db.VarChar(250)
   gender              String
-  contact_number      Int           @unique
+  contact_number      String        @unique
   city                String
   state               String
   password            String        @db.VarChar(20)
@@ -100,31 +100,31 @@ model staff {
   academic_yearID   String        @db.Uuid
   branch            branch        @relation(fields: [branchBranch_code], references: [branch_code])
   branchBranch_code Int
-  semester          semester     @relation(fields: [semesterSem_id], references: [sem_id])
+  semester          semester      @relation(fields: [semesterSem_id], references: [sem_id])
   semesterSem_id    Int
 }
 
 model subject {
-  sub_code     Int     @id @default(autoincrement())
+  sub_code     Int    @id @default(autoincrement())
   subject_name String
-  
+
   notes          notes[]
   monthly_report monthly_report[]
   attendance     attendance[]
   assingnments   assignments[]
   unit_test      unit_test[]
   exam_schedule  exam_schedule[]
-  semester       semester       @relation(fields: [sem_num], references: [sem_id])
-  sem_num Int
+  semester       semester         @relation(fields: [sem_num], references: [sem_id])
+  sem_num        Int
 }
 
 model semester {
-  sem_id     Int       @id @default(autoincrement())
-  sem_number Int
-  student    student[]
-  staffs     staff[]
-  subjects   subject[]
-  notes      notes[]
+  sem_id            Int         @id @default(autoincrement())
+  sem_number        Int
+  student           student[]
+  staffs            staff[]
+  subjects          subject[]
+  notes             notes[]
   unit_test         unit_test[]
   branch            branch      @relation(fields: [branchBranch_code], references: [branch_code])
   branchBranch_code Int
@@ -162,8 +162,8 @@ model exam_schedule {
 }
 
 model type_of_exam {
-  id        String @id @default(uuid()) @db.Uuid
-  exam_type String
+  id            String        @id @default(uuid()) @db.Uuid
+  exam_type     String
   exam_schedule exam_schedule @relation(fields: [Exam_ID], references: [exam_ID])
   Exam_ID       Int
 }
@@ -241,23 +241,23 @@ model monthly_report {
   student            student[]
   admin              admin     @relation(fields: [adminId], references: [id])
   adminId            Int
-  subject         subject @relation(fields: [subjectSub_code], references: [sub_code])
-  subjectSub_code Int
+  subject            subject   @relation(fields: [subjectSub_code], references: [sub_code])
+  subjectSub_code    Int
 }
 
 model notes {
   notes_id  String  @id @default(uuid()) @db.Uuid
   title     String
   content   String
-  pdf       String 
+  pdf       String
   student   student @relation(fields: [studentId], references: [id])
   studentId Int
 
-  staff   staff @relation(fields: [staffId], references: [id])
-  staffId Int
-  branch            branch    @relation(fields: [branchBranch_code], references: [branch_code])
+  staff             staff    @relation(fields: [staffId], references: [id])
+  staffId           Int
+  branch            branch   @relation(fields: [branchBranch_code], references: [branch_code])
   branchBranch_code Int
-  subject           subject   @relation(fields: [subjectSub_code], references: [sub_code])
+  subject           subject  @relation(fields: [subjectSub_code], references: [sub_code])
   subjectSub_code   Int
   semester          semester @relation(fields: [semesterSem_id], references: [sem_id])
   semesterSem_id    Int
@@ -281,18 +281,18 @@ model assignments {
 }
 
 model unit_test {
-  UT_id             String    @id @default(uuid()) @db.Uuid
+  UT_id             String   @id @default(uuid()) @db.Uuid
   UT_name           String
   Date_time         DateTime
-  student           student   @relation(fields: [Stu_name], references: [reg_no])
+  student           student  @relation(fields: [Stu_name], references: [reg_no])
   Stu_name          String
-  staff             staff     @relation(fields: [Staff_name], references: [staff_id])
+  staff             staff    @relation(fields: [Staff_name], references: [staff_id])
   Staff_name        String
-  admin             admin     @relation(fields: [adminId], references: [id])
+  admin             admin    @relation(fields: [adminId], references: [id])
   adminId           Int
-  branch            branch    @relation(fields: [branchBranch_code], references: [branch_code])
+  branch            branch   @relation(fields: [branchBranch_code], references: [branch_code])
   branchBranch_code Int
-  subject           subject   @relation(fields: [subjectSub_code], references: [sub_code])
+  subject           subject  @relation(fields: [subjectSub_code], references: [sub_code])
   subjectSub_code   Int
   semester          semester @relation(fields: [semesterSem_id], references: [sem_id])
   semesterSem_id    Int
