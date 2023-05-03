@@ -48,12 +48,10 @@ model student {
   city           String
   state          String
   password       String @db.VarChar(20)
-
   notes               notes[]
   assingments         assignments[]
   girevence_redressal girevence_redressal[]
   unit_test           unit_test[]
-
   attendance                    attendance      @relation(fields: [attendanceAttendance_id], references: [attendance_id])
   attendanceAttendance_id       String          @db.Uuid
   monthly_report                monthly_report  @relation(fields: [monthly_reportMonthly_repo_id], references: [monthly_repo_id])
