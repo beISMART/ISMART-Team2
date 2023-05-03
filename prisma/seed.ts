@@ -16,13 +16,12 @@ async function main() {
             state:"Karnataka",
             city:"Bengaluru",
             password:"mypass123",
-            admin_qualification:"LLB",
-
+            admin_qualification:"LLB"
 
         }
         
     });
-   
+
     
     const academic_year = await Prisma.academic_year.create({
         data: {
