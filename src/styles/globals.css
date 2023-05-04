@@ -25,3 +25,27 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+
+.header {
+  background-color: #1466ae;
+  color: #fff;
+
+  padding: 1em;
+  position: absolute;
+  top:10px;
+  
+  border-radius: 50px;
+}
+
+.header__title {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.header__subtitle {
+  font-size: 1.2em;
+  margin-top: 0;
+
+}

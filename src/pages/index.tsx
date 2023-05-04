@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
-
+import  Header  from '@/components/Header'
+import Main from '@/components/Main'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -8,7 +9,9 @@ export default function Home() {
       className={`flex min-h-screen flex-col items-center justify-center p-24 ${inter.className}`}
       style={{ backgroundColor: 'skyblue' }}
     >
-      <h1 className='text-4xl font-bold font-sans italic text-black text-center'>ISMART</h1>
+     
+      <Header/>
+      <Main/>
     </main>
   )
 }
