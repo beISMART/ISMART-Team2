@@ -36,25 +36,24 @@ model admin {
 }
 
 model staff {
-  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  first_name           String
-  last_name            String
-  full_name            String
-  mail_id              String                 @unique
-  address              String
-  gender               String
-  contact_number       String                 @unique
-  staff_qualification  String
-  city                 String
-  state                String
-  password             String?
-  co_admin             co_admin[]
-  branch               branch                 @relation(fields: [Branch_name], references: [branch_name])
-  Branch_name          String
+  id                  String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  first_name          String
+  last_name           String
+  full_name           String
+  mail_id             String     @unique
+  address             String
+  gender              String
+  contact_number      String     @unique
+  staff_qualification String
+  city                String
+  state               String
+  password            String?
+  co_admin            co_admin[]
+
   notes                notes[]
   session_details      session_details[]
   academic_year        academic_year          @relation(fields: [Academic_year], references: [Academic_year])
-  Academic_year        String
+  Academic_year        DateTime
   staff_remarks        staff_remarks[]
   assignments          assignments[]
   unit_test            unit_test[]
@@ -64,6 +63,8 @@ model staff {
   check_attendance     check_attendance[]
   check_monthly_report check_monthly_report[]
   allocate_sub         allocate_sub[]
+  branch               branch                 @relation(fields: [branch_name], references: [branch_name])
+  branch_name          String
 }
 
 model co_admin {
@@ -92,7 +93,7 @@ model student {
   notes           notes[]
   session_details session_details[]
   academic_year   academic_year     @relation(fields: [Academic_year], references: [Academic_year])
-  Academic_year   String
+  Academic_year   DateTime
   student_remarks student_remarks[]
   assignments     assignments[]
   unit_test       unit_test[]
@@ -115,14 +116,14 @@ model session_details {
 }
 
 model academic_year {
-  Academic_year String      @id @unique
+  Academic_year DateTime    @id @unique
   student       student[]
   staff         staff[]
   see_marks     see_marks[]
 }
 
 model branch {
-  branch_name    String           @id @unique
+  branch_name    String           @id 
   semesters      semesters[]
   student        student[]
   staff          staff[]
@@ -213,7 +214,7 @@ model subjects {
 }
 
 model semesters {
-  sem_no         String           @id @unique
+  sem_no         String           @id 
   subjects       subjects[]
   student        student[]
   branch         branch?          @relation(fields: [Branch_name], references: [branch_name])
@@ -253,7 +254,7 @@ model see_marks {
   student       student       @relation(fields: [studentId], references: [id])
   studentId     String        @db.Uuid
   academic_year academic_year @relation(fields: [Academic_year], references: [Academic_year])
-  Academic_year String
+  Academic_year DateTime
   branch        branch        @relation(fields: [Branch_name], references: [branch_name])
   Branch_name   String
   admin         admin?        @relation(fields: [adminId], references: [id])
