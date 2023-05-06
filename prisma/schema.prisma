@@ -11,60 +11,60 @@ datasource db {
 }
 
 model admin {
-  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  first_name           String
-  last_name            String
-  full_name            String
-  mail_id              String                 @unique
-  address              String
-  gender               String
-  contact_number       String                 @unique
-  admin_qualification  String
-  city                 String
-  state                String
-  password             String?
-  session_details      session_details[]
-  staff_remarks        staff_remarks[]
-  student_remarks      student_remarks[]
-  check_notes          check_notes[]
-  check_assignments    check_assignments[]
-  see_marks            see_marks[]
-  cie_marks            cie_marks[]
-  check_attendance     check_attendance[]
-  check_monthly_report check_monthly_report[]
-  allocate_sub         allocate_sub[]
+  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  first_name            String
+  last_name             String
+  full_name             String
+  mail_id               String                  @unique
+  address               String
+  gender                String
+  contact_number        String                  @unique
+  admin_qualification   String
+  city                  String
+  state                 String
+  password              String?
+  staff_remarks         staff_remarks[]
+  student_remarks       student_remarks[]
+  check_notes           check_notes[]
+  check_assignments     check_assignments[]
+  see_marks             see_marks[]
+  cie_marks             cie_marks[]
+  check_attendance      check_attendance[]
+  check_monthly_report  check_monthly_report[]
+  allocate_sub          allocate_sub[]
+  session_details_admin session_details_admin[]
+  grievance_redressal   grievance_redressal[]
 }
 
 model staff {
-  id                  String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  first_name          String
-  last_name           String
-  full_name           String
-  mail_id             String     @unique
-  address             String
-  gender              String
-  contact_number      String     @unique
-  staff_qualification String
-  city                String
-  state               String
-  password            String?
-  co_admin            co_admin[]
-
-  notes                notes[]
-  session_details      session_details[]
-  academic_year        academic_year          @relation(fields: [Academic_year], references: [Academic_year])
-  Academic_year        DateTime
-  staff_remarks        staff_remarks[]
-  assignments          assignments[]
-  unit_test            unit_test[]
-  see_marks            see_marks[]
-  cie_marks            cie_marks[]
-  attendance           attendance[]
-  check_attendance     check_attendance[]
-  check_monthly_report check_monthly_report[]
-  allocate_sub         allocate_sub[]
-  branch               branch                 @relation(fields: [branch_name], references: [branch_name])
-  branch_name          String
+  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  first_name            String
+  last_name             String
+  full_name             String
+  mail_id               String                  @unique
+  address               String
+  gender                String
+  contact_number        String                  @unique
+  staff_qualification   String
+  city                  String
+  state                 String
+  password              String?
+  co_admin              co_admin[]
+  notes                 notes[]
+  academic_year         academic_year           @relation(fields: [Academic_year], references: [Academic_year])
+  Academic_year         DateTime
+  staff_remarks         staff_remarks[]
+  assignments           assignments[]
+  unit_test             unit_test[]
+  see_marks             see_marks[]
+  cie_marks             cie_marks[]
+  attendance            attendance[]
+  check_attendance      check_attendance[]
+  check_monthly_report  check_monthly_report[]
+  allocate_sub          allocate_sub[]
+  branch                branch                  @relation(fields: [branch_name], references: [branch_name])
+  branch_name           String
+  session_details_staff session_details_staff[]
 }
 
 model co_admin {
@@ -74,43 +74,56 @@ model co_admin {
 }
 
 model student {
-  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  reg_no          String
-  first_name      String
-  last_name       String
-  full_name       String
-  mail_id         String            @unique
-  address         String
-  gender          String
-  contact_number  String            @unique
-  city            String
-  state           String
-  password        String?
-  branch          branch            @relation(fields: [Branch_name], references: [branch_name])
-  Branch_name     String
-  semesters       semesters         @relation(fields: [Sem_no], references: [sem_no])
-  Sem_no          String
-  notes           notes[]
-  session_details session_details[]
-  academic_year   academic_year     @relation(fields: [Academic_year], references: [Academic_year])
-  Academic_year   DateTime
-  student_remarks student_remarks[]
-  assignments     assignments[]
-  unit_test       unit_test[]
-  see_marks       see_marks[]
-  cie_marks       cie_marks[]
-  attendance      attendance[]
-  monthly_report  monthly_report[]
+  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  reg_no                  String
+  first_name              String
+  last_name               String
+  full_name               String
+  mail_id                 String                    @unique
+  address                 String
+  gender                  String
+  contact_number          String                    @unique
+  city                    String
+  state                   String
+  password                String?
+  branch                  branch                    @relation(fields: [Branch_name], references: [branch_name])
+  Branch_name             String
+  semesters               semesters                 @relation(fields: [Sem_no], references: [sem_no])
+  Sem_no                  String
+  notes                   notes[]
+  academic_year           academic_year             @relation(fields: [Academic_year], references: [Academic_year])
+  Academic_year           DateTime
+  student_remarks         student_remarks[]
+  assignments             assignments[]
+  unit_test               unit_test[]
+  see_marks               see_marks[]
+  cie_marks               cie_marks[]
+  attendance              attendance[]
+  monthly_report          monthly_report[]
+  session_details_student session_details_student[]
+  grievance_redressal     grievance_redressal[]
 }
 
-model session_details {
+model session_details_admin {
   session_id  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  login_time  DateTime @default(now())
-  logout_time DateTime @default(now())
+  login_time  DateTime @default(dbgenerated("now()")) @db.Timestamptz()
+  logout_time DateTime @default(dbgenerated("now()")) @db.Timestamptz()
   admin       admin    @relation(fields: [adminId], references: [id])
   adminId     String   @db.Uuid
+}
+
+model session_details_staff {
+  session_id  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  login_time  DateTime @default(dbgenerated("now()")) @db.Timestamptz()
+  logout_time DateTime @default(dbgenerated("now()")) @db.Timestamptz()
   staff       staff    @relation(fields: [staffId], references: [id])
   staffId     String   @db.Uuid
+}
+
+model session_details_student {
+  session_id  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  login_time  DateTime @default(dbgenerated("now()")) @db.Timestamptz()
+  logout_time DateTime @default(dbgenerated("now()")) @db.Timestamptz()
   student     student  @relation(fields: [studentId], references: [id])
   studentId   String   @db.Uuid
 }
@@ -123,7 +136,7 @@ model academic_year {
 }
 
 model branch {
-  branch_name    String           @id 
+  branch_name    String           @id
   semesters      semesters[]
   student        student[]
   staff          staff[]
@@ -137,22 +150,22 @@ model branch {
 }
 
 model notes {
-  id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title         String
-  unit_no       String
-  unit_name     String
-  uploaded_date DateTime?    @default(now())
-  file_pdf      String?
-  subjects      subjects     @relation(fields: [Sub_code], references: [sub_code])
-  Sub_code      String
-  student       student      @relation(fields: [studentId], references: [id])
-  studentId     String       @db.Uuid
-  staff         staff        @relation(fields: [staffId], references: [id])
-  staffId       String       @db.Uuid
-  check_notes   check_notes? @relation(fields: [check_notesId], references: [id])
-  check_notesId String?      @db.Uuid
-  branch        branch       @relation(fields: [Branch_name], references: [branch_name])
-  Branch_name   String
+  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title           String
+  unit_no         String
+  unit_name       String
+  uploaded_date   DateTime?   @default(now())
+  file_pdf        String?
+  subjects        subjects    @relation(fields: [Sub_code], references: [sub_code])
+  Sub_code        String
+  student         student     @relation(fields: [studentId], references: [id])
+  studentId       String      @db.Uuid
+  staff           staff       @relation(fields: [staffId], references: [id])
+  staffId         String      @db.Uuid
+  check_notes     check_notes @relation(fields: [checked_notesId], references: [id])
+  checked_notesId String      @db.Uuid
+  branch          branch      @relation(fields: [Branch_name], references: [branch_name])
+  Branch_name     String
 }
 
 model check_notes {
@@ -163,20 +176,20 @@ model check_notes {
 }
 
 model assignments {
-  id                  String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id                  String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   Unit_no             String
   title               String
-  description         String?
+  description         String
   deadline            DateTime
-  uploaded_date       DateTime?          @default(now())
-  file_pdf            String?
-  staff               staff              @relation(fields: [staffId], references: [id])
-  staffId             String             @db.Uuid
-  student             student            @relation(fields: [studentId], references: [id])
-  studentId           String             @db.Uuid
-  check_assignments   check_assignments? @relation(fields: [check_assignmentsId], references: [id])
-  check_assignmentsId String?            @db.Uuid
-  branch              branch             @relation(fields: [Branch_name], references: [branch_name])
+  uploaded_date       DateTime?         @default(now())
+  file_pdf            String
+  staff               staff             @relation(fields: [staffId], references: [id])
+  staffId             String            @db.Uuid
+  student             student           @relation(fields: [studentId], references: [id])
+  studentId           String            @db.Uuid
+  check_assignments   check_assignments @relation(fields: [check_assignmentsId], references: [id])
+  check_assignmentsId String            @db.Uuid
+  branch              branch            @relation(fields: [Branch_name], references: [branch_name])
   Branch_name         String
 }
 
@@ -214,7 +227,7 @@ model subjects {
 }
 
 model semesters {
-  sem_no         String           @id 
+  sem_no         String           @id
   subjects       subjects[]
   student        student[]
   branch         branch?          @relation(fields: [Branch_name], references: [branch_name])
@@ -280,27 +293,27 @@ model cie_marks {
 }
 
 model attendance {
-  id                 String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  status             Boolean           @default(false) //absent 
-  Date               DateTime          @default(dbgenerated("now()"))
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  status             Boolean          @default(false) //absent 
+  Date               DateTime         @default(dbgenerated("now()"))
   hour_number        String
-  staff              staff?            @relation(fields: [staffId], references: [id])
-  staffId            String?           @db.Uuid
-  student            student           @relation(fields: [studentId], references: [id])
-  studentId          String            @db.Uuid
-  branch             branch            @relation(fields: [Branch_name], references: [branch_name])
+  staff              staff?           @relation(fields: [staffId], references: [id])
+  staffId            String?          @db.Uuid
+  student            student          @relation(fields: [studentId], references: [id])
+  studentId          String           @db.Uuid
+  branch             branch           @relation(fields: [Branch_name], references: [branch_name])
   Branch_name        String
-  subjects           subjects          @relation(fields: [Sub_code], references: [sub_code])
+  subjects           subjects         @relation(fields: [Sub_code], references: [sub_code])
   Sub_code           String
-  check_attendance   check_attendance? @relation(fields: [check_attendanceId], references: [id])
-  check_attendanceId String?           @db.Uuid
+  check_attendance   check_attendance @relation(fields: [check_attendanceId], references: [id])
+  check_attendanceId String           @db.Uuid
 }
 
 model check_attendance {
   id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   attendance attendance[]
-  admin      admin?       @relation(fields: [adminId], references: [id])
-  adminId    String?      @db.Uuid
+  admin      admin        @relation(fields: [adminId], references: [id])
+  adminId    String       @db.Uuid
   staff      staff?       @relation(fields: [staffId], references: [id])
   staffId    String?      @db.Uuid
 }
@@ -350,4 +363,15 @@ model exam_schedule {
   subjectsSub_code  String
   semesters         semesters @relation(fields: [semestersSem_no], references: [sem_no])
   semestersSem_no   String
+}
+
+model grievance_redressal {
+  id                String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  issue_type        String
+  issue_description String
+  Date              DateTime
+  admin     admin   @relation(fields: [adminId], references: [id])
+  adminId   String  @db.Uuid
+  student   student @relation(fields: [studentId], references: [id])
+  studentId String  @db.Uuid
 }
