@@ -120,7 +120,7 @@ await Promise.all(staffs.map(async (staff)=> {
 
 
 for (let i = 0; i < 2; i++) {
-  await prisma.semesters.create({
+  await prisma.semesters.createMany({
     data: {
       sem_no: faker.datatype.number({ min:1 , max:6 }).toString()
     }  
