@@ -538,6 +538,6 @@ const randomIndex6 = Math.floor(Math.random() * Admins.length);
 }
 
 main()
-  .then(() => console.log("success"))
+  .then(() => console.log("Success Baby 😘"))
   .catch((e) => console.log(e))
   .finally(async () => await prisma.$disconnect());
