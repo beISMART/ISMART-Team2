@@ -13,7 +13,7 @@ export default function RectangleFrame() {
         </div>
       </div>
       <div className="flex justify-center items-center ">
-        <Image src="/borcelle.svg" alt="newimg" width={500} height={500} />
+      <Image src="/public/ISMART.png" alt="ISMART logo" width={195} height={103}  />
       </div>
     </div>
   );

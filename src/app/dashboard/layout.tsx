@@ -1,5 +1,6 @@
 import { Roboto_Slab } from "next/font/google";
 import Link from "next/link";
+import Image from "next/image";
 
 interface props {
   children: React.ReactNode;
@@ -10,15 +11,12 @@ const IsmartFont = Roboto_Slab ({ weight: "400", subsets: ["latin"] });
 export default function RootLayout({ children }: props) {
   return (
     <div className="h-screen w-screen overflow-hidden">
-      <header
-        style={IsmartFont.style}
-        className="h-14 border-b bg-blue-300 text-black flex items-center px-5 text-xl font-mono font-bold"
-      >
-        ISMART - LOGO
+<header style={IsmartFont.style} className="h-35 border-b bg-primary text-black flex items-center">
+      <Image src="/ISMART.ico" alt="ISMART logo" width={312} height={243} />
       </header>
-      <div className="w-full h-full flex">
-        <nav className="h-full w-[180px] border-r  bg-blue-950 p-15">
-          <ul className="w-full flex flex-col gap-10">
+      <div className="w-full h-full flex ">
+        <nav className="h-full w-[180px]    bg-secondary p-15">
+          <ul className="w-full flex flex-col gap-20">
             <Link href={"/dashboard"}>
               <li className="text-md hover:font-medium hover:cursor-pointer">
                 Home
@@ -61,7 +59,7 @@ export default function RootLayout({ children }: props) {
             </Link>
           </ul>
         </nav>
-        <main className="w-full h-full bg-blue-300 flex items-center justify-center overflow-y-scroll">
+        <main className="w-full h-full bg-primary flex items-center justify-center overflow-y-scroll">
           {children}
         </main>
       </div>
