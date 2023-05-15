@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions'
-import CustomDropdown from '../components/CustomDropdown'
+import CustomDropdown from '../components/CustomDropdownForBranch'
 
 export default {
-  title: 'CustomDropdown',
+  title: 'CustomDropdownForBanch',
   component: CustomDropdown,
 }
 
