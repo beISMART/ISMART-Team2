@@ -25,7 +25,7 @@ const initialState: ExamScheduleState = {
 
 export const fetchExams = createAsyncThunk<exam_schedule[], void, { rejectValue: Error }>(
   "examSchedule/fetchExams",
-  async (Payload ,{fulfillWithValue}) => {
+  async (_Payload ,{fulfillWithValue}) => {
     try {
       const response = await SupaClient.from("exam_schedule").select(
         "*").eq('subjectsSub_code ','p8ady')
@@ -38,7 +38,7 @@ export const fetchExams = createAsyncThunk<exam_schedule[], void, { rejectValue:
 );
 
 export const addExam = createAsyncThunk<exam_schedule[], void, { rejectValue: Error }>(
-  "examSchedule/addExam", async (Payload ,{fulfillWithValue}) => {
+  "examSchedule/addExam", async (_Payload ,{fulfillWithValue}) => {
   try {
     const response = await SupaClient.from("exam_schedule").select(
       "*,type_of_exam,exam_date_time"
