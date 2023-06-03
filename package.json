@@ -16,9 +16,11 @@
     "@heroicons/react": "^2.0.18",
     "@prisma/client": "^4.13.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "@supabase/supabase-js": "^2.24.0",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "next": "^13.4.1",
@@ -26,8 +28,9 @@
     "prisma": "^4.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
-    "react-redux": "^8.0.5",
+    "react-redux": "^8.0.7",
     "tailwindcss": "3.3.2"
   },
   "prisma": {

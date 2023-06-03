@@ -12,7 +12,7 @@ export default function RootLayout({ children }: props) {
   return (
     <div className="h-screen w-screen overflow-hidden">
 <header style={IsmartFont.style} className="h-35 border-b bg-primary text-black flex items-center">
-      <Image src="/ISMART.ico" alt="ISMART logo" width={312} height={243} />
+      <Image src="/ISMART.png" alt="ISMART logo" width={312} height={243} />
       </header>
       <div className="w-full h-full flex ">
         <nav className="h-full w-[180px]    bg-secondary p-15">
