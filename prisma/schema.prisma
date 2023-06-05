@@ -34,6 +34,7 @@ model admin {
   allocate_sub          allocate_sub[]
   session_details_admin session_details_admin[]
   grievance_redressal   grievance_redressal[]
+  circular              circular[]
 }
 
 model staff {
@@ -129,10 +130,11 @@ model session_details_student {
 }
 
 model academic_year {
-  Academic_year DateTime    @id @unique
+  Academic_year DateTime         @id @unique
   student       student[]
   staff         staff[]
   see_marks     see_marks[]
+  timetable     timetable[]
 }
 
 model branch {
@@ -147,6 +149,8 @@ model branch {
   attendance     attendance[]
   monthly_report monthly_report[]
   exam_schedule  exam_schedule[]
+  circular       circular[]
+  timetable      timetable[]
 }
 
 model notes {
@@ -370,8 +374,35 @@ model grievance_redressal {
   issue_type        String
   issue_description String
   Date              DateTime
-  admin     admin   @relation(fields: [adminId], references: [id])
-  adminId   String  @db.Uuid
-  student   student @relation(fields: [studentId], references: [id])
-  studentId String  @db.Uuid
+  admin             admin    @relation(fields: [adminId], references: [id])
+  adminId           String   @db.Uuid
+  student           student  @relation(fields: [studentId], references: [id])
+  studentId         String   @db.Uuid
+}
+
+model circular {
+  id                   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Date                 DateTime
+  circular_title       String
+  circular_description String
+  admin                admin?   @relation(fields: [adminId], references: [id])
+  adminId              String?  @db.Uuid
+  branch               branch   @relation(fields: [branchBranch_name], references: [branch_name])
+  branchBranch_name    String
+}
+
+model timetable {
+  id                String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Day               String
+  branch            branch        @relation(fields: [branchBranch_name], references: [branch_name])
+  branchBranch_name String
+  academic_year     academic_year @relation(fields: [Academic_year], references: [Academic_year])
+  Academic_year     DateTime
+  hour1             String
+  hour2             String
+  hour3             String
+  hour4             String
+  hour5             String
+  hour6             String
+  hour7             String
 }

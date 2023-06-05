@@ -28,10 +28,11 @@ export const fetchExams = createAsyncThunk<exam_schedule[], void, { rejectValue:
   async (_Payload ,{fulfillWithValue}) => {
     try {
       const response = await SupaClient.from("exam_schedule").select(
-        "*").eq('subjectsSub_code ','p8ady')
+        "*").eq('subjectsSub_code','r99ui')
       ;
       return fulfillWithValue(response.data as exam_schedule[]);
     } catch (error) {
+      console.log(error)
       throw new Error("Failed to fetch exams");
     }
   }
@@ -43,28 +44,23 @@ export const addExam = createAsyncThunk<exam_schedule[], void, { rejectValue: Er
     const response = await SupaClient.from("exam_schedule").select(
       "*,type_of_exam,exam_date_time"
     );
-    return fulfillWithValue(response.data as exam_schedule[]);;
+    return fulfillWithValue(response.data as exam_schedule[]);
   } catch (error) {
     throw new Error("Failed to add exam");
   }
 });
 
-export const deleteExam = createAsyncThunk(
-  "examSchedule/deleteExam",
-  async (examId: string) => {
-    try {
-      const { error } = await SupaClient.from("exam_schedule")
-        .delete()
-        .eq("id", examId);
-      if (error) {
-        throw new Error("Failed to delete exam");
-      }
-      return examId;
-    } catch (error) {
-      throw new Error("Failed to delete exam");
+export const deleteExam = createAsyncThunk("notes/deleteExam", async (examid: string) => {
+  try {
+    const { data, error } = await SupaClient.from("exam_schedule").delete().eq("id", '*');
+    if (error) {
+      throw new Error(error.message);
     }
+    return examid;
+  } catch (error) {
+    throw new Error("Failed to delete note");
   }
-);
+});
 
 export const examScheduleSlice = createSlice({
   name: "examSchedule",
@@ -104,7 +100,7 @@ export const examScheduleSlice = createSlice({
         state.loading = false;
         if (state.exams)
           state.exams = state.exams.filter(
-            (exam) => exam.id !== action.payload
+            (exams) => exams.id !== action.payload
           );
       })
       .addCase(deleteExam.rejected, (state, action) => {

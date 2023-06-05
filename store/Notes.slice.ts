@@ -1,15 +1,23 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import { RootState } from "../store/index";
+import { SupaClient } from "../utils/supabase"; // Assuming you have a SupaClient instance
 
-interface Note {
+
+interface notes {
   id: string;
   title: string;
-  content: string;
+  unit_no: string;
+  unit_name: string;
+  uploaded_date: string;
+  file_pdf: string;
+  Sub_code: string;
+  studentId: string;
+  staffId: string;
+  checked_notesId: string;
+  Branch_name: string;
 }
 
 interface NotesState {
-  notes: Note[];
+  notes: notes[];
   loading: boolean;
   error: string | null;
 }
@@ -20,32 +28,52 @@ const initialState: NotesState = {
   error: null,
 };
 
-export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-  try {
-    const response = await axios.get("/api/notes");
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to fetch notes");
+export const fetchNotes = createAsyncThunk<notes[], void, { rejectValue: Error }>(
+  "notes/fetchNotes",
+  async (_Payload ,{fulfillWithValue}) => {
+    try {
+      const response = await SupaClient.from("notes").select(
+        "*").eq('Sub_code ','r99ui')
+      ;
+      return fulfillWithValue(response.data as notes[]);
+    } catch (error) {
+      throw new Error("Failed to fetch notes");
+    }
   }
-});
+);
 
-export const addNote = createAsyncThunk("notes/addNote", async (note: Note) => {
-  try {
-    const response = await axios.post("/api/notes", note);
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to add note");
-  }
-});
 
-export const deleteNote = createAsyncThunk("notes/deleteNote", async (noteId: string) => {
-  try {
-    await axios.delete(`/api/notes/${noteId}`);
-    return noteId;
-  } catch (error) {
-    throw new Error("Failed to delete note");
+export const addNote = createAsyncThunk<notes[], void, { rejectValue: Error }>(
+  "notes/addNote",
+  async (_Payload ,{fulfillWithValue}) => {
+    try {
+      const response = await SupaClient.from("notes").select(
+        "*,title,unit_no,unit_name,uploaded_date,file_pdf")
+      ;
+      return fulfillWithValue(response.data as notes[]);
+    } catch (error) {
+      throw new Error("Failed to add notes");
+    }
   }
-});
+);
+
+export const deleteNote = createAsyncThunk(
+  "notes/deleteNote",
+  async (notesId: string) => {
+    try {
+      const { error } = await SupaClient.from("notes")
+        .delete()
+        .eq("id", notesId);
+      if (error) {
+        throw new Error("Failed to delete notes");
+      }
+      return notesId;
+    } catch (error) {
+      throw new Error("Failed to delete notes");
+    }
+  }
+);
+
 
 export const notesSlice = createSlice({
   name: "notes",
@@ -71,7 +99,7 @@ export const notesSlice = createSlice({
       })
       .addCase(addNote.fulfilled, (state, action) => {
         state.loading = false;
-        state.notes.push(action.payload);
+        state.notes = action.payload;
       })
       .addCase(addNote.rejected, (state, action) => {
         state.loading = false;
@@ -87,7 +115,11 @@ export const notesSlice = createSlice({
       })
       .addCase(deleteNote.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? "Failed to delete note";
+        state.error = action.error.message ??
+
+ "Failed to delete note";
       });
   },
 });
+
+export default notesSlice.reducer;

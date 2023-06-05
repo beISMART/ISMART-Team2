@@ -7,6 +7,8 @@ const prisma = new PrismaClient();
 
 
 async function main(){ 
+  await prisma.timetable.deleteMany();
+  await prisma.circular.deleteMany();
   await prisma.grievance_redressal.deleteMany();
   await prisma.exam_schedule.deleteMany();
   await prisma.allocate_sub.deleteMany();
@@ -531,11 +533,48 @@ const randomIndex6 = Math.floor(Math.random() * Admins.length);
 
 
 
+                for (let i = 0; i < 4; i++) {
+                  const Admins = await prisma.admin.findMany();
+                  const randomIndex1300 = Math.floor(Math.random() * Admins.length);
+                  const Branch = await prisma.branch.findMany();
+                  const randomIndex1800 = Math.floor(Math.random() * Branch.length);
+                  await prisma.circular.createMany({
+                    data: {
+                      Date: faker.date.recent(),
+                      circular_title: faker.lorem.words(),
+                      circular_description: faker.lorem.sentence(),
+                      branchBranch_name: Branch[randomIndex1800].branch_name,
+                      adminId: Admins[randomIndex1300].id,
+                    },
+                  });
+                }
+              
+                for (let i = 0; i < 5; i++) {
+                  const Branch = await prisma.branch.findMany();
+                  const randomIndex400 = Math.floor(Math.random() * Branch.length);
+                  const academic_years1 = await prisma.academic_year.findMany();
+                  const randomIndex2000 = Math.floor(Math.random() * academic_years.length);
+                  await prisma.timetable.create({
+                    data: {
+                      Day: faker.date.weekday(),
+                      branchBranch_name: Branch[randomIndex400].branch_name,
+                      Academic_year: academic_years1[randomIndex2000].Academic_year,
+                      hour1: faker.random.word(),
+                      hour2: faker.random.word(),
+                      hour3: faker.random.word(),
+                      hour4: faker.random.word(),
+                      hour5: faker.random.word(),
+                      hour6: faker.random.word(),
+                      hour7: faker.random.word(),
+                    },
+                  });
+                }
+              }
 
 
 
-  
-}
+
+
 
 main()
   .then(() => console.log("Success Baby 😘"))

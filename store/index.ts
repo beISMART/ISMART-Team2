@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useSelector, useDispatch } from "react-redux";
 import { MonthlyReportSlice } from "./Monthly_report.slice";
-import {notesSlice} from "./Notes.slice"
 import {examScheduleSlice} from "./Exam_schedule.slice";
+import {notesSlice} from "./Notes.slice"
 export const store = configureStore({
   reducer: {
     monthly_report: MonthlyReportSlice.reducer,
-    notes: notesSlice.reducer,
-    examSchedule: examScheduleSlice.reducer
+    examSchedule: examScheduleSlice.reducer,
+    notes: notesSlice.reducer
   },
 });
 
