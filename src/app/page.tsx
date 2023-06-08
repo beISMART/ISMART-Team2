@@ -3,7 +3,6 @@ import { useAppDispatch } from "../../store";
 import {useEffect} from "react"
 import { fetchExams } from "../../store/Exam_schedule.slice";
 import {addExam} from "../../store/Exam_schedule.slice";
-
 import {fetchNotes} from "../../store/Notes.slice";
 import {addNote} from "../../store/Notes.slice";
 

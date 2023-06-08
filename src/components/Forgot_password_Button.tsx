@@ -1,8 +1,7 @@
 export default function Button() {
-    return (
-      <button className="text-secondary text-[24px] font-serif hover:underline focus:outline-none">
-        Forgot password?
-      </button>
-    );
-  }
-  
+  return (
+    <button className="text-secondary text-[15px] font-serif hover:underline focus:outline-none text-center">
+      Forgot password?
+    </button>
+  );
+}
