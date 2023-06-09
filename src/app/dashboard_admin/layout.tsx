@@ -1,14 +1,14 @@
 "use client"
 import React, { useState } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiLogOut } from 'react-icons/fi';
 import { Roboto_Slab } from 'next/font/google';
 import Link from 'next/link';
 
 import { ImHome, TiUserAdd } from 'react-icons/all';
 
-import { RiUserAddLine } from 'react-icons/ri';
-import { BsFillCalendarFill } from 'react-icons/bs';
-import { AiOutlineFileText } from 'react-icons/ai';
+import { RiUserAddFill } from 'react-icons/all';
+import { BsCalendarWeekFill } from 'react-icons/all';
+import { AiFillSchedule } from 'react-icons/all';
 import { AiOutlineBook } from 'react-icons/ai';
 import { AiOutlineForm } from 'react-icons/ai';
 import { IoMdChatboxes } from 'react-icons/io';
@@ -107,11 +107,11 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <RiUserAddLine className="mr-2 sidebar-icons" size={18} />
+                    <RiUserAddFill className="mr-2 sidebar-icons" size={18} />
                     Add Staff
                   </>
                 ) : (
-                  <RiUserAddLine className="sidebar-icons" size={18} />
+                  <RiUserAddFill className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
@@ -123,11 +123,11 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <BsFillCalendarFill className="mr-2 sidebar-icons" size={18} />
+                    <BsCalendarWeekFill className="mr-2 sidebar-icons" size={17} />
                     Attendance
                   </>
                 ) : (
-                  <BsFillCalendarFill className="sidebar-icons" size={18} />
+                  <BsCalendarWeekFill className="sidebar-icons" size={17} />
                 )}
               </li>
             </Link>
@@ -139,11 +139,11 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <AiOutlineFileText className="mr-2 sidebar-icons" size={18} />
+                    <AiFillSchedule className="mr-2 sidebar-icons" size={18} />
                     Exam Schedule
                   </>
                 ) : (
-                  <AiOutlineFileText className="sidebar-icons" size={18} />
+                  <AiFillSchedule className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
@@ -195,6 +195,29 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
+            <Link href={'../sign-out-global'}>
+
+            <li
+            className={`${
+              expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
+            } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+          >
+            {expanded || hovered ? (
+              <>
+                <FiLogOut className="mr-2 sidebar-icons" size={18} />
+                Logout
+              </>
+            ) : (
+              <FiLogOut className="sidebar-icons" size={18} />
+            )}
+          </li>
+</Link>
+
+
+
+
+
+
             {/* Add the remaining sidebar links here */}
           </ul>
         </nav>
@@ -239,6 +262,22 @@ export default function RootLayout({ children }: Props) {
         .sidebar-collapsed li {
           font-size: 18px;
         }
+
+
+        .sidebar-expanded li:hover {
+          background-color: #; /* Add your desired background color */
+          color: #fff; /* Add your desired text color */
+          transform: scale(1.1);
+          transition: transform 0.3s;
+        }
+      
+        .sidebar-collapsed li:hover {
+          background-color: #; /* Add your desired background color */
+          color: #fff; /* Add your desired text color */
+          transform: scale(1.1);
+          transition: transform 0.3s;
+        }
+        
       `}</style>
     </div>
   );
