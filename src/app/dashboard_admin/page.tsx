@@ -1,3 +1,13 @@
-export default function Page() {
-    return <h1 className="text-3xl text-black font-bold">Dashboard /Home page for Admin</h1>;
-  }
+
+
+
+import Admin_home_options from '@/components/Admin_home_options'
+import React from 'react'
+const page = () => {
+  return (
+    <div>
+<Admin_home_options/>
+    </div>
+  )
+}
+export default page

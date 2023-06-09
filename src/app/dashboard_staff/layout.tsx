@@ -1,16 +1,17 @@
 "use client"
 import React, { useState } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiLogOut } from 'react-icons/fi';
 import { Roboto_Slab } from 'next/font/google';
 import Link from 'next/link';
-
-import { AiOutlineHome } from 'react-icons/ai';
-import { RiUserAddLine } from 'react-icons/ri';
-import { BsFillCalendarFill } from 'react-icons/bs';
-import { AiOutlineFileText } from 'react-icons/ai';
+import { ImHome, TiUserAdd } from 'react-icons/all';
+import { RiUserAddFill } from 'react-icons/all';
+import { BsCalendarWeekFill } from 'react-icons/all';
+import { AiFillSchedule } from 'react-icons/all';
 import { AiOutlineBook } from 'react-icons/ai';
 import { AiOutlineForm } from 'react-icons/ai';
 import { IoMdChatboxes } from 'react-icons/io';
+import Image from 'next/image';
+
 
 interface Props {
   children: React.ReactNode;
@@ -40,7 +41,7 @@ export default function RootLayout({ children }: Props) {
     <div className="h-screen w-screen overflow-hidden bg-primary relative">
       <header
         style={IsmartFont.style}
-        className="h-14 border-b border-secondary flex items-center px-5 text-xl font-mono font-bold"
+        className="h-14 border-b border-primary flex items-center px-5 text-xl font-mono font-bold"
       >
         {expanded || hovered ? (
           <FiChevronLeft
@@ -55,18 +56,25 @@ export default function RootLayout({ children }: Props) {
             onClick={toggleSidebar}
           />
         )}
-        ISMART-PR2
+         <div style={{ position: 'absolute', top: 15, left: -30 }}>
+        <Image
+          src="/ISMARTLOGO.png" // Replace with the path to your image in the public folder
+          alt="My_Image"
+          width={230} // Specify the desired width of the image
+          height={230} // Specify the desired height of the image
+        />
+      </div>
       </header>
-      <div className="w-full h-full flex">
+      <div className="w-full h-full flex absolute left-0 top-[80px]">
         <nav
           className={`h-full ${
             expanded ? 'w-[180px] sidebar-expanded' : 'w-[60px] sidebar-collapsed'
-          } border-r bg-secondary p-8`}
+          } border-r bg-secondary p-8  rounded-tr-[10px]`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <ul className="w-full flex flex-col gap-8">
-            <Link href={'/dashboard_staff'}>
+            <Link href={'/dashboard_admin'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg '
@@ -74,15 +82,15 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <AiOutlineHome className="mr-2 sidebar-icons" size={18} />
+                    <ImHome className="mr-2 sidebar-icons" size={18} />
                     Home
                   </>
                 ) : (
-                  <AiOutlineHome className="sidebar-icons" size={18} />
+                  <ImHome className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard_staff/Add_student'}>
+            <Link href={'/dashboard_admin/Add_student'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -90,15 +98,15 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <RiUserAddLine className="mr-2 sidebar-icons" size={18} />
+                    <TiUserAdd className="mr-2 sidebar-icons" size={18} />
                     Add Student
                   </>
                 ) : (
-                  <RiUserAddLine className="sidebar-icons" size={18} />
+                  <TiUserAdd className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard_staff/Add_staff'}>
+            <Link href={'/dashboard_admin/Add_staff'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -106,15 +114,15 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <RiUserAddLine className="mr-2 sidebar-icons" size={18} />
+                    <RiUserAddFill className="mr-2 sidebar-icons" size={18} />
                     Add Staff
                   </>
                 ) : (
-                  <RiUserAddLine className="sidebar-icons" size={18} />
+                  <RiUserAddFill className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard_staff/Attendance'}>
+            <Link href={'/dashboard_admin/Attendance'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -122,15 +130,15 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <BsFillCalendarFill className="mr-2 sidebar-icons" size={18} />
+                    <BsCalendarWeekFill className="mr-2 sidebar-icons" size={17} />
                     Attendance
                   </>
                 ) : (
-                  <BsFillCalendarFill className="sidebar-icons" size={18} />
+                  <BsCalendarWeekFill className="sidebar-icons" size={17} />
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard_staff/Exam_schedule'}>
+            <Link href={'/dashboard_admin/Exam_schedule'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -138,15 +146,15 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <AiOutlineFileText className="mr-2 sidebar-icons" size={18} />
+                    <AiFillSchedule className="mr-2 sidebar-icons" size={18} />
                     Exam Schedule
                   </>
                 ) : (
-                  <AiOutlineFileText className="sidebar-icons" size={18} />
+                  <AiFillSchedule className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard_staff/Remarks'}>
+            <Link href={'/dashboard_admin/Remarks'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -162,7 +170,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard_staff/Cie_and_see_marks'}>
+            <Link href={'/dashboard_admin/Cie_and_see_marks'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -178,7 +186,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard_staff/Grievance_redressal'}>
+            <Link href={'/dashboard_admin/Grievance_redressal'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -194,6 +202,28 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
+            <Link href={'../sign-out-staff'}>
+            <li
+            className={`${
+              expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
+            } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+          >
+            {expanded || hovered ? (
+              <>
+                <FiLogOut className="mr-2 sidebar-icons" size={18} />
+                Logout
+              </>
+            ) : (
+              <FiLogOut className="sidebar-icons" size={18} />
+            )}
+          </li>
+</Link>
+
+
+
+
+
+
             {/* Add the remaining sidebar links here */}
           </ul>
         </nav>
@@ -238,6 +268,26 @@ export default function RootLayout({ children }: Props) {
         .sidebar-collapsed li {
           font-size: 18px;
         }
+
+
+        .sidebar-expanded li:hover {
+          background-color: #; /* Add your desired background color */
+          color: #fff; /* Add your desired text color */
+          transform: scale(1.5);
+          transition: transform 0.3s;
+        hover:bg-black/[0.12] hover:text-white'
+
+        }
+      
+        .sidebar-collapsed li:hover {
+          background-color: #; /* Add your desired background color */
+          color: #fff; /* Add your desired text color */
+          transform: scale(1.5);
+          transition: transform 0.3s;
+          hover:bg-black /[0.12] hover:text-white'
+
+        }
+        
       `}</style>
     </div>
   );

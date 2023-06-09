@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import { FiChevronLeft, FiChevronRight, FiLogOut } from 'react-icons/fi';
 import { Roboto_Slab } from 'next/font/google';
 import Link from 'next/link';
-
 import { ImHome, TiUserAdd } from 'react-icons/all';
-
 import { RiUserAddFill } from 'react-icons/all';
 import { BsCalendarWeekFill } from 'react-icons/all';
 import { AiFillSchedule } from 'react-icons/all';
 import { AiOutlineBook } from 'react-icons/ai';
 import { AiOutlineForm } from 'react-icons/ai';
 import { IoMdChatboxes } from 'react-icons/io';
+import Image from 'next/image';
+
 
 interface Props {
   children: React.ReactNode;
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: Props) {
     <div className="h-screen w-screen overflow-hidden bg-primary relative">
       <header
         style={IsmartFont.style}
-        className="h-14 border-b border-secondary flex items-center px-5 text-xl font-mono font-bold"
+        className="h-14 border-b border-primary flex items-center px-5 text-xl font-mono font-bold"
       >
         {expanded || hovered ? (
           <FiChevronLeft
@@ -56,13 +56,20 @@ export default function RootLayout({ children }: Props) {
             onClick={toggleSidebar}
           />
         )}
-        <div className='text-black'> ISMART-PR2</div>
+         <div style={{ position: 'absolute', top: 15, left: -30 }}>
+        <Image
+          src="/ISMARTLOGO.png" // Replace with the path to your image in the public folder
+          alt="My_Image"
+          width={230} // Specify the desired width of the image
+          height={230} // Specify the desired height of the image
+        />
+      </div>
       </header>
-      <div className="w-full h-full flex">
+      <div className="w-full h-full flex absolute left-0 top-[80px]">
         <nav
           className={`h-full ${
             expanded ? 'w-[180px] sidebar-expanded' : 'w-[60px] sidebar-collapsed'
-          } border-r bg-secondary p-8`}
+          } border-r bg-secondary p-8  rounded-tr-[10px]`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -195,8 +202,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'../sign-out-global'}>
-
+            <Link href={'../sign-out-admin'}>
             <li
             className={`${
               expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -267,15 +273,19 @@ export default function RootLayout({ children }: Props) {
         .sidebar-expanded li:hover {
           background-color: #; /* Add your desired background color */
           color: #fff; /* Add your desired text color */
-          transform: scale(1.1);
+          transform: scale(1.5);
           transition: transform 0.3s;
+        hover:bg-black/[0.12] hover:text-white'
+
         }
       
         .sidebar-collapsed li:hover {
           background-color: #; /* Add your desired background color */
           color: #fff; /* Add your desired text color */
-          transform: scale(1.1);
+          transform: scale(1.5);
           transition: transform 0.3s;
+          hover:bg-black /[0.12] hover:text-white'
+
         }
         
       `}</style>
