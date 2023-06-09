@@ -15,10 +15,7 @@ const Page = () => {
               width={90} // Specify the desired width of the image
               height={90} // Specify the desired height of the image
             /></div>
-        <div style={{ position: 'absolute', top: 400, right: 425 }}>
-          <Login_Button />
-          
-        </div>
+        
         <div style={{position:'absolute',top:480, right:580}}>
         <Forgot_password_Button/> </div>
         

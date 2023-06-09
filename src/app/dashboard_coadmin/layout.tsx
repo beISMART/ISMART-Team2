@@ -37,7 +37,7 @@ export default function RootLayout({ children }: Props) {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden">
+    <div className="h-screen w-screen overflow-hidden bg-primary relative">
       <header
         style={IsmartFont.style}
         className="h-14 border-b border-secondary flex items-center px-5 text-xl font-mono font-bold"
@@ -82,7 +82,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Add_student'}>
+            <Link href={'/dashboard_coadmin/Add_student'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -98,7 +98,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Add_staff'}>
+            <Link href={'/dashboard_coadmin/Add_staff'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -114,7 +114,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Attendance'}>
+            <Link href={'/dashboard_coadmin/Attendance'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -130,7 +130,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Exam_schedule'}>
+            <Link href={'/dashboard_coadmin/Exam_schedule'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -146,7 +146,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Remarks'}>
+            <Link href={'/dashboard_coadmin/Remarks'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -162,7 +162,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Cie_and_see_marks'}>
+            <Link href={'/dashboard_coadmin/Cie_and_see_marks'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -178,7 +178,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Grievance_redressal'}>
+            <Link href={'/dashboard_coadmin/Grievance_redressal'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'

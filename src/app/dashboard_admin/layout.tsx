@@ -4,7 +4,8 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Roboto_Slab } from 'next/font/google';
 import Link from 'next/link';
 
-import { AiOutlineHome } from 'react-icons/ai';
+import { ImHome, TiUserAdd } from 'react-icons/all';
+
 import { RiUserAddLine } from 'react-icons/ri';
 import { BsFillCalendarFill } from 'react-icons/bs';
 import { AiOutlineFileText } from 'react-icons/ai';
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: Props) {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden">
+    <div className="h-screen w-screen overflow-hidden bg-primary relative">
       <header
         style={IsmartFont.style}
         className="h-14 border-b border-secondary flex items-center px-5 text-xl font-mono font-bold"
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: Props) {
             onClick={toggleSidebar}
           />
         )}
-        ISMART-PR2
+        <div className='text-black'> ISMART-PR2</div>
       </header>
       <div className="w-full h-full flex">
         <nav
@@ -66,7 +67,7 @@ export default function RootLayout({ children }: Props) {
           onMouseLeave={handleMouseLeave}
         >
           <ul className="w-full flex flex-col gap-8">
-            <Link href={'/dashboard'}>
+            <Link href={'/dashboard_admin'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg '
@@ -74,15 +75,15 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <AiOutlineHome className="mr-2 sidebar-icons" size={18} />
+                    <ImHome className="mr-2 sidebar-icons" size={18} />
                     Home
                   </>
                 ) : (
-                  <AiOutlineHome className="sidebar-icons" size={18} />
+                  <ImHome className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Add_student'}>
+            <Link href={'/dashboard_admin/Add_student'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -90,15 +91,15 @@ export default function RootLayout({ children }: Props) {
               >
                 {expanded || hovered ? (
                   <>
-                    <RiUserAddLine className="mr-2 sidebar-icons" size={18} />
+                    <TiUserAdd className="mr-2 sidebar-icons" size={18} />
                     Add Student
                   </>
                 ) : (
-                  <RiUserAddLine className="sidebar-icons" size={18} />
+                  <TiUserAdd className="sidebar-icons" size={18} />
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Add_staff'}>
+            <Link href={'/dashboard_admin/Add_staff'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -114,7 +115,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Attendance'}>
+            <Link href={'/dashboard_admin/Attendance'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -130,7 +131,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Exam_schedule'}>
+            <Link href={'/dashboard_admin/Exam_schedule'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -146,7 +147,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Remarks'}>
+            <Link href={'/dashboard_admin/Remarks'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -162,7 +163,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Cie_and_see_marks'}>
+            <Link href={'/dashboard_admin/Cie_and_see_marks'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
@@ -178,7 +179,7 @@ export default function RootLayout({ children }: Props) {
                 )}
               </li>
             </Link>
-            <Link href={'/dashboard/Grievance_redressal'}>
+            <Link href={'/dashboard_admin/Grievance_redressal'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
