@@ -26,7 +26,7 @@ const RectangleFrame = () => {
           <input
             type="text"
             placeholder="ADMIN ID*"
-            className="block w-full text-lg text-[16px] text-black  border-b-2 font-serif border-blue-500"
+            className="block w-full text-lg text-[16px] text-black  border-b-2 font-serif border-blue-500 outline-none"
             value={adminId}
             onChange={(e) => setAdminId(e.target.value)}
           />
@@ -35,7 +35,7 @@ const RectangleFrame = () => {
           <input
             type="password"
             placeholder="PASSWORD*"
-            className="block w-full text-lg  text-[16px] text-black border-b-2 font-serif border-blue-500"
+            className="block w-full text-lg  text-[16px] text-black border-b-2 font-serif border-blue-500 outline-none"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

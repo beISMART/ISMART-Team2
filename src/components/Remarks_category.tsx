@@ -2,18 +2,18 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const year = [
-  { name: '2020' },
-  { name: '2021' },
-  { name: '2022' },
-  { name: '2023' },
-
+const category = [
+  { name: 'Disciplinary Feedback' },
+  { name: 'Academic Feedback' },
+  { name: 'Achievement' },
+  { name: 'Others' },
+  
 ]
 
 export default function Example() {
   const [selected, setSelected] = useState(null)
 
-  const defaultOption = { name: 'Select Year' }
+  const defaultOption = { name: 'Select Type of Remarks' }
   const displayValue = selected?.name || defaultOption.name
 
 
@@ -36,16 +36,16 @@ export default function Example() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-245 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" style={{ width: '245px' }}>
-              {year.map((year, yearIdx) => (
+            <Listbox.Options className="absolute mt-1 max-h-60 w-245 overflow-auto rounded-md bg-white py-1 text-base shadow-lg shadow-blue-400 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" style={{ width: '245px' }}>
+              {category.map((category, categoryIdx) => (
                 <Listbox.Option
-                  key={yearIdx}
+                  key={categoryIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? 'bg-primary text-brand' : 'text-gray-900'
                     }`
                   }
-                  value={year}
+                  value={category}
                 >
                   {({ selected }) => (
                     <>
@@ -54,7 +54,7 @@ export default function Example() {
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >
-                        {year.name}
+                        {category.name}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-brand">

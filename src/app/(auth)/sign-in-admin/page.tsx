@@ -1,6 +1,5 @@
 import React from 'react';
 import Admin_frame_with_logo from '@/components/Admin_frame_with_logo';
-import Login_Button from '@/components/Login_Button';
 import Forgot_password_Button from '@/components/Forgot_password_Button';
 import Image from 'next/image';
 

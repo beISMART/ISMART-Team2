@@ -1,3 +1,13 @@
-export default function Page() {
-    return <h1 className="text-3xl text-White font-bold">Dashboard /CIE & SEE Marks page</h1>;
-  }
+import Cie_and_see_selector_main from '@/components/Cie_and_see_selector_main'
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>
+<Cie_and_see_selector_main/>
+
+    </div>
+  )
+}
+
+export default page

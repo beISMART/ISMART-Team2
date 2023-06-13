@@ -2,20 +2,21 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const sem = [
-  { name: '1' },
-  { name: '2' },
-  { name: '3' },
-  { name: '4' },
-  { name: '5' },
-  { name: '6' },
+const branch = [
+  { name: 'Computer Science' },
+  { name: 'Mechanical' },
+  { name: 'Civil' },
+  { name: 'EEE' },
+  { name: 'EC' },
+  { name: 'Animation' },
 ]
 
 export default function Example() {
   const [selected, setSelected] = useState(null)
 
-  const defaultOption = { name: 'Select Semester' }
+  const defaultOption = { name: 'Select Branch' }
   const displayValue = selected?.name || defaultOption.name
+
 
   return (
     <div className="fixed top-16 w-72">
@@ -36,16 +37,16 @@ export default function Example() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-245 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" style={{ width: '245px' }}>
-              {sem.map((sem, semIdx) => (
+            <Listbox.Options className="absolute mt-1 max-h-60 w-245 overflow-auto rounded-md bg-white py-1 text-base shadow-lg shadow-blue-400 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" style={{ width: '245px' }}>
+              {branch.map((branch, branchIdx) => (
                 <Listbox.Option
-                  key={semIdx}
+                  key={branchIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? 'bg-primary text-brand' : 'text-gray-900'
                     }`
                   }
-                  value={sem}
+                  value={branch}
                 >
                   {({ selected }) => (
                     <>
@@ -54,7 +55,7 @@ export default function Example() {
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >
-                        {sem.name}
+                        {branch.name}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-brand">

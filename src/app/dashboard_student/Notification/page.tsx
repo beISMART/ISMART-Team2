@@ -1,4 +1,4 @@
-import Notifications from '@/components/Notifications'
+import Notifications from '@/components/Profile_button'
 import React from 'react'
 
 const page = () => {

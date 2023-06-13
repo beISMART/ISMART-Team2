@@ -59,7 +59,28 @@ async function getData(): Promise<Grievance[]> {
 
 
     },
-    
+    {
+   
+      branch: "Civil",
+      semester : 1,
+      date : "02/2/2023",
+      student: "Darshan",
+      issue : "Sem-books not provided",
+      status: "failed"
+
+
+    },
+    {
+   
+      branch: "Civil",
+      semester : 1,
+      date : "02/2/2023",
+      student: "Darshan",
+      issue : "Sem-books not provided",
+      status: "failed"
+
+
+    },
     // ...
   ];
 }

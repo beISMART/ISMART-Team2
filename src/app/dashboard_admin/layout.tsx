@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { FiChevronLeft, FiChevronRight, FiLogOut } from 'react-icons/fi';
+import {  FiLogOut, IoNotificationsCircle,  } from 'react-icons/all';
 import { Roboto_Slab } from 'next/font/google';
 import Link from 'next/link';
 import { ImHome, TiUserAdd } from 'react-icons/all';
@@ -11,6 +11,7 @@ import { AiOutlineBook } from 'react-icons/ai';
 import { AiOutlineForm } from 'react-icons/ai';
 import { IoMdChatboxes } from 'react-icons/io';
 import Image from 'next/image';
+import Profile_button from '@/components/Profile_button';
 
 
 interface Props {
@@ -33,38 +34,49 @@ export default function RootLayout({ children }: Props) {
     setExpanded(false);
   };
 
-  const toggleSidebar = () => {
-    setExpanded(!expanded);
-  };
+ 
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-primary relative">
-      <header
-        style={IsmartFont.style}
-        className="h-14 border-b border-primary flex items-center px-5 text-xl font-mono font-bold"
-      >
-        {expanded || hovered ? (
-          <FiChevronLeft
-            className="mr-2 cursor-pointer"
-            size={18}
-            onClick={toggleSidebar}
-          />
-        ) : (
-          <FiChevronRight
-            className="mr-2 cursor-pointer"
-            size={18}
-            onClick={toggleSidebar}
-          />
-        )}
-         <div style={{ position: 'absolute', top: 15, left: -30 }}>
-        <Image
-          src="/ISMARTLOGO.png" // Replace with the path to your image in the public folder
-          alt="My_Image"
-          width={230} // Specify the desired width of the image
-          height={230} // Specify the desired height of the image
-        />
-      </div>
-      </header>
+     <header
+  style={IsmartFont.style}
+  className="h-14 border-b border-primary flex items-center px-5 text-xl font-mono font-bold relative"
+>
+  
+    <div style={{ position: 'absolute', top: 15, left: -30 }}>
+      <Image
+        src="/ISMARTLOGO.png" // Replace with the path to your image in the public folder
+        alt="My_Image"
+        width={230} // Specify the desired width of the image
+        height={230} // Specify the desired height of the image
+      />
+    </div>
+
+    <div style={{ position: 'absolute', top: 7, left: 200 }}>
+      <Image
+        src="/admin_inside_logo.png" // Replace with the path to your image in the public folder
+        alt="My_Image"
+        width={50} // Specify the desired width of the image
+        height={50} // Specify the desired height of the image
+      />
+     <div className='text-secondary text-bold text-[18px] absolute left-[-8px]'> ADMIN</div>
+    </div>
+
+
+
+
+    <Link href={'/dashboard_admin/profile'}>
+    <Profile_button/>
+    </Link>
+    <div className="ml-auto absolute top-[30px] right-[300px]">
+    <button className="icon-button">
+            <IoNotificationsCircle className="mr-4 text-brand hover:text-secondary text-[50px]" />
+          </button>
+        </div>
+  {/* Rest of your code */}
+</header>
+
+
       <div className="w-full h-full flex absolute left-0 top-[80px]">
         <nav
           className={`h-full ${
@@ -73,12 +85,12 @@ export default function RootLayout({ children }: Props) {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <ul className="w-full flex flex-col gap-8">
+          <ul className="w-full flex flex-col  gap-8">
             <Link href={'/dashboard_admin'}>
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg '
-                } flex hover:font-medium hover:cursor-pointer whitespace-nowrap`}
+                } flex hover:font-medium hover:cursor-pointer text-black  whitespace-nowrap`}
               >
                 {expanded || hovered ? (
                   <>
@@ -94,7 +106,7 @@ export default function RootLayout({ children }: Props) {
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-                } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+                } flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
               >
                 {expanded || hovered ? (
                   <>
@@ -110,7 +122,7 @@ export default function RootLayout({ children }: Props) {
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-                } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+                } flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
               >
                 {expanded || hovered ? (
                   <>
@@ -126,7 +138,7 @@ export default function RootLayout({ children }: Props) {
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-                } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+                } flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
               >
                 {expanded || hovered ? (
                   <>
@@ -142,7 +154,7 @@ export default function RootLayout({ children }: Props) {
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-                } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+                } flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
               >
                 {expanded || hovered ? (
                   <>
@@ -158,7 +170,7 @@ export default function RootLayout({ children }: Props) {
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-                } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+                } flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
               >
                 {expanded || hovered ? (
                   <>
@@ -174,7 +186,7 @@ export default function RootLayout({ children }: Props) {
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-                } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+                } flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
               >
                 {expanded || hovered ? (
                   <>
@@ -190,7 +202,7 @@ export default function RootLayout({ children }: Props) {
               <li
                 className={`${
                   expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-                }  flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+                }  flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
               >
                 {expanded || hovered ? (
                   <>
@@ -206,7 +218,7 @@ export default function RootLayout({ children }: Props) {
             <li
             className={`${
               expanded ? 'w-full text-sm' : 'w-[60px] text-lg'
-            } flex whitespace-nowrap hover:font-medium hover:cursor-pointer`}
+            } flex whitespace-nowrap hover:font-medium text-black hover:cursor-pointer`}
           >
             {expanded || hovered ? (
               <>
@@ -287,7 +299,28 @@ export default function RootLayout({ children }: Props) {
           hover:bg-black /[0.12] hover:text-white'
 
         }
+
         
+        
+
+        .icon-button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          transition: transform 0.3s;
+        }
+
+        .icon-button:hover {
+          transform: scale(1.1) translateY(-2px);
+        }
+
+
+
+
+
+
+
       `}</style>
     </div>
   );

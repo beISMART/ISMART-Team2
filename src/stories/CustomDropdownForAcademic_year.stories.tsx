@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import CustomDropdown from '../components/CustomDropdownForAcademic_year'
+import CustomDropdown from '../components/Academicyear_dropdown'
 
 export default {
   title: 'CustomDropdownForYear',

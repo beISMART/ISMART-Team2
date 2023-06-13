@@ -1,3 +1,13 @@
-export default function Page() {
-    return <h1 className="text-3xl text-White font-bold">Dashboard /Remarks page</h1>;
-  }
+import Remarks_selector_main from '@/components/Remarks_selector_main'
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>
+      
+      <Remarks_selector_main/>
+    </div>
+  )
+}
+
+export default page

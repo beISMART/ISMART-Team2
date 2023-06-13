@@ -518,6 +518,8 @@ const randomIndex6 = Math.floor(Math.random() * Admins.length);
             const randomIndex53 = Math.floor(Math.random() * Admins.length);
             const Students = await prisma.student.findMany();
             const randomIndex54 = Math.floor(Math.random() * Students.length);
+            const branch = await prisma.branch.findMany();
+            const randomIndex50000 = Math.floor(Math.random() * branch.length);
             const ISSUE_TYPE = ['Abuse', 'Harassment', 'Hospitality', 'Marks', 'Security'];
                   await prisma.grievance_redressal.createMany({
                     data: {
@@ -525,7 +527,9 @@ const randomIndex6 = Math.floor(Math.random() * Admins.length);
                      issue_description:faker.lorem.sentences(),
                      Date: faker.date.recent(),
                      adminId:Admins[randomIndex53].id,
-                     studentId:Students[randomIndex54].id
+                     studentId:Students[randomIndex54].id,
+                     branchBranch_name:branch[randomIndex50000].branch_name
+
                     },
                   });
                 }

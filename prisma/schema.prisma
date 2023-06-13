@@ -130,7 +130,7 @@ model session_details_student {
 }
 
 model academic_year {
-  Academic_year DateTime         @id @unique
+  Academic_year DateTime    @id @unique
   student       student[]
   staff         staff[]
   see_marks     see_marks[]
@@ -138,19 +138,20 @@ model academic_year {
 }
 
 model branch {
-  branch_name    String           @id
-  semesters      semesters[]
-  student        student[]
-  staff          staff[]
-  notes          notes[]
-  assignments    assignments[]
-  see_marks      see_marks[]
-  cie_marks      cie_marks[]
-  attendance     attendance[]
-  monthly_report monthly_report[]
-  exam_schedule  exam_schedule[]
-  circular       circular[]
-  timetable      timetable[]
+  branch_name         String                @id
+  semesters           semesters[]
+  student             student[]
+  staff               staff[]
+  notes               notes[]
+  assignments         assignments[]
+  see_marks           see_marks[]
+  cie_marks           cie_marks[]
+  attendance          attendance[]
+  monthly_report      monthly_report[]
+  exam_schedule       exam_schedule[]
+  circular            circular[]
+  timetable           timetable[]
+  grievance_redressal grievance_redressal[]
 }
 
 model notes {
@@ -378,6 +379,8 @@ model grievance_redressal {
   adminId           String   @db.Uuid
   student           student  @relation(fields: [studentId], references: [id])
   studentId         String   @db.Uuid
+  branch            branch  @relation(fields: [branchBranch_name], references: [branch_name])
+  branchBranch_name String
 }
 
 model circular {
